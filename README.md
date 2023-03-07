@@ -1,12 +1,5 @@
----
-title: Comparing Captioning Models
-emoji: 🔥
-colorFrom: yellow
-colorTo: pink
-sdk: gradio
-sdk_version: 3.15.0
-app_file: app.py
-pinned: false
----
+# Images and Text Context-Matching
 
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+Using CLIP (multi-modal transformer) to match images and text.
+<br>
+Using different captioning models to generate captions for images.
