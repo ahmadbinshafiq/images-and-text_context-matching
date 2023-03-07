@@ -2,7 +2,7 @@ import base64
 import io
 
 from PIL import Image
-from fastapi import FastAPI, Request, status, Response
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from models import ImageTextSearchModel, ImageModel
@@ -11,7 +11,7 @@ from clip_image_text_search import image_text_search
 from captions_generator import generate_captions
 
 
-app = FastAPI(title="Image & Text Contextual Comparison API", version="0.1.0")
+app = FastAPI(title="Image & Text Contextual Comparison API", version="0.1.0", docs_url="/docs")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=['*'],
@@ -21,7 +21,7 @@ app.add_middleware(
 )
 
 
-def spilt_source(source: str) -> list(str):
+def spilt_source(source: str) -> list[str]:
     sources = source.split(',')
     sources = [source.strip() for source in sources]
     return sources

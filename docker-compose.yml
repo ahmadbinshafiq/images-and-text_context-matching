@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+
+  app:
+    build: .
+    volumes:
+      - .:/home/user/app
+    ports:
+      - ${PORT}:${PORT}
+    command: ./run_server.sh
+    environment:
+      - PORT=${PORT}
