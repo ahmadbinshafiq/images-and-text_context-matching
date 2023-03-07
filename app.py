@@ -20,6 +20,9 @@ app.add_middleware(
     allow_headers=['*'],
 )
 
+MAX_CLIP_THRESH = 50
+BIAS_CATEGORY = "this is an unknown image"
+
 
 def spilt_source(source: str) -> list[str]:
     sources = source.split(',')
@@ -40,16 +43,16 @@ def read_root():
 
 @app.post("/image_text_search")
 def image_text_search_api(image_text_search_model: ImageTextSearchModel):
-    text = image_text_search_model.text + ", unknown"
+    text = image_text_search_model.text + ", " + BIAS_CATEGORY
     texts = spilt_source(text)
     image = base64_to_image(image_text_search_model.image)
     results = image_text_search(image, texts)
     results["suggested_captions"] = []
-    if max(results, key=results.get) == "unknown":
-        cap1 = generate_captions(image)
+    if max(results, key=results.get) == BIAS_CATEGORY or results[max(results, key=results.get)] < MAX_CLIP_THRESH:
+        cap1 = generate_captions(image)  # can add more captions here
         results["suggested_captions"].append(cap1)
 
-    results.pop("unknown")
+    results.pop(BIAS_CATEGORY)
     return results
 
 
