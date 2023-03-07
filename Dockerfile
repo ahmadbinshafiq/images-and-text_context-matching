@@ -18,6 +18,9 @@ RUN pip3 install torchvision
 
 RUN pip3 install fastapi uvicorn[standard]
 
+RUN pip3 install opencv-python
+RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
+
 RUN useradd -m -u 1000 user
 USER user
 ENV HOME=/home/user \

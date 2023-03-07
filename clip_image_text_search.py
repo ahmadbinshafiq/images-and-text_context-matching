@@ -1,14 +1,15 @@
 import clip
 import cv2
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import numpy as np
 import torch
 from PIL import Image
 
-from scrapper import scrape_images
+# from scrapper import scrape_images
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device)
+print("Model Loaded")
 
 
 def image_text_search(image: Image, text_descriptions: list):
@@ -43,9 +44,9 @@ if __name__ == "__main__":
     image = Image.fromarray(image)
     results = image_text_search(image, descriptions)
 
-    plt.imshow(np.array(image))
-    title_string = ""
-    for key, value in results.items():
-        title_string += f"\n String: {key}: Similarity: {value:.2f}%"
-    plt.ylabel(title_string)
-    plt.show()
+    # plt.imshow(np.array(image))
+    # title_string = ""
+    # for key, value in results.items():
+    #     title_string += f"\n String: {key}: Similarity: {value:.2f}%"
+    # plt.ylabel(title_string)
+    # plt.show()

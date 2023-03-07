@@ -40,9 +40,17 @@ def read_root():
 
 @app.post("/image_text_search")
 def image_text_search_api(image_text_search_model: ImageTextSearchModel):
-    texts = spilt_source(image_text_search_model.text)
+    text = image_text_search_model.text + ", unknown"
+    texts = spilt_source(text)
     image = base64_to_image(image_text_search_model.image)
-    return image_text_search(image, texts)
+    results = image_text_search(image, texts)
+    results["suggested_captions"] = []
+    if max(results, key=results.get) == "unknown":
+        cap1 = generate_captions(image)
+        results["suggested_captions"].append(cap1)
+
+    results.pop("unknown")
+    return results
 
 
 @app.post("/generate_captions")
