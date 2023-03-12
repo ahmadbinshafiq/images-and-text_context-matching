@@ -46,14 +46,19 @@ def image_text_search_api(image_text_search_model: ImageTextSearchModel):
     text = image_text_search_model.text + ", " + BIAS_CATEGORY
     texts = spilt_source(text)
     image = base64_to_image(image_text_search_model.image)
+    response = {}
     results = image_text_search(image, texts)
-    results["suggested_captions"] = []
+    response["suggested_captions"] = []
     if max(results, key=results.get) == BIAS_CATEGORY or results[max(results, key=results.get)] < MAX_CLIP_THRESH:
         cap1 = generate_captions(image)  # can add more captions here
-        results["suggested_captions"].append(cap1)
+        response["suggested_captions"].append(cap1)
 
     results.pop(BIAS_CATEGORY)
-    return results
+    response["results"] = []
+    for res in results:
+        response["results"].append({res: f"{float(results[res]):.2f}"})
+
+    return response
 
 
 @app.post("/generate_captions")

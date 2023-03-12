@@ -3,6 +3,7 @@ version: "3"
 services:
 
   app:
+    container_name: context_matching_backend
     build: .
     volumes:
       - .:/home/user/app
@@ -11,3 +12,8 @@ services:
     command: ./run_server.sh
     environment:
       - PORT=${PORT}
+
+networks:
+  default:
+    name: ${NETWORK_NAME}
+    external: true
