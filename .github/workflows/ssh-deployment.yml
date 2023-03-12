@@ -38,6 +38,5 @@ jobs:
          cd ~/../../datadrive/dev/context-matching/backend/
          sudo docker compose down
          chmod +x run_server.sh
-         cd ..
          sudo docker compose up --build -d
           
