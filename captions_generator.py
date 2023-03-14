@@ -36,10 +36,10 @@ blip_model_large = BlipForConditionalGeneration.from_pretrained("Salesforce/blip
 # vitgpt_model = VisionEncoderDecoderModel.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
 # vitgpt_tokenizer = AutoTokenizer.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
 
-coca_model, _, coca_transform = open_clip.create_model_and_transforms(
-    model_name="coca_ViT-L-14",
-    pretrained="mscoco_finetuned_laion2B-s13B-b90k"
-)
+# coca_model, _, coca_transform = open_clip.create_model_and_transforms(
+#     model_name="coca_ViT-L-14",
+#     pretrained="mscoco_finetuned_laion2B-s13B-b90k"
+# )
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -49,7 +49,7 @@ git_model_large_coco.to(device)
 # git_model_large_textcaps.to(device)
 blip_model_large.to(device)
 # vitgpt_model.to(device)
-coca_model.to(device)
+# coca_model.to(device)
 
 
 # blip2_model.to(device)
@@ -90,11 +90,11 @@ def generate_captions(image):
     #
     # # caption_vitgpt = generate_caption(vitgpt_processor, vitgpt_model, image, vitgpt_tokenizer)
     #
-    caption_coca = generate_caption_coca(coca_model, coca_transform, image)
+    # caption_coca = generate_caption_coca(coca_model, coca_transform, image)
     #
     # # caption_blip2 = generate_caption(blip2_processor, blip2_model, image, use_float_16=True).strip()
     #
     # caption_blip2_8_bit = generate_caption(blip2_processor_8_bit, blip2_model_8_bit, image, use_float_16=True).strip()
 
     # return caption_git_large_coco, caption_git_large_textcaps, caption_blip_large, caption_coca, caption_blip2_8_bit
-    return [caption_git_large_coco, caption_blip_large, caption_coca]
+    return [caption_git_large_coco, caption_blip_large]
