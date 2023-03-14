@@ -21,7 +21,7 @@ jobs:
       uses: garygrossgarten/github-action-scp@release
       with:
           local: repo
-          remote: ../../datadrive/dev/context-matching/backend
+          remote: ../../datadrive/dev/context-matching/qa_backend
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           privatekey: ${{ secrets.key }}
@@ -35,7 +35,7 @@ jobs:
         key: ${{ secrets.KEY }}  # SSH private key (sudo cat mykey.pem)
         port: ${{ secrets.PORT }} # 22 default
         script: |
-         cd ~/../../datadrive/dev/context-matching/backend/
+         cd ~/../../datadrive/dev/context-matching/qa_backend/
          sudo docker compose down
          chmod +x run_server.sh
          sudo docker compose up --build -d
