@@ -50,8 +50,8 @@ def image_text_search_api(image_text_search_model: ImageTextSearchModel):
     results = image_text_search(image, texts)
     response["suggested_captions"] = []
     if max(results, key=results.get) == BIAS_CATEGORY or results[max(results, key=results.get)] < MAX_CLIP_THRESH:
-        cap1 = generate_captions(image)  # can add more captions here
-        response["suggested_captions"].append(cap1)
+        # cap1 = generate_captions(image)  # can add more captions here
+        response["suggested_captions"].append(generate_captions(image))
 
     results.pop(BIAS_CATEGORY)
     response["results"] = []
